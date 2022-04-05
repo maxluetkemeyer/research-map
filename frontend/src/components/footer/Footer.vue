@@ -1,10 +1,10 @@
 <template>
   <div id="footer_wrapper">
-    <h1>Details</h1>
+    <h1 id="details_headding">Details</h1>
 
     <table id="info" v-if="store.publication.id != -1">
-      <tr v-for="(key, index) in keys" :key="key">
-        <td class="info_key">{{ values[index] }}</td>
+      <tr v-for="(value, key) in store.publicationDetail" :key="value">
+        <td class="info_key">{{ key }}</td>
         <td class="info_value">{{ store.publicationDetail[key] }}</td>
       </tr>
     </table>
@@ -27,15 +27,19 @@ export default {
   },
   methods: {
     async updateData() {
-      //let rows = await fetchData(store.query);
-      //let rows = custom_response;
-
-      //const rows = await fetchDetails();
+      /*const rows = await fetchDetails({
+        publicationId: this.store.publication.id,
+      });*/
       const rows = details_response;
 
       const publication = rows[0]; //TODO:
 
       this.store.publicationDetail = publication;
+
+      document.getElementById("details_headding").scrollIntoView({
+        block: "start",
+        behavior: "smooth",
+      });
     },
   },
   async mounted() {
@@ -48,6 +52,16 @@ export default {
 <style>
 #footer_wrapper {
   position: relative;
+}
+
+table,
+tr {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+td {
+  padding: 5px;
+  border-right: 1px solid black;
 }
 
 .info_key {

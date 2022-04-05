@@ -1,0 +1,6 @@
+<table id="info" v-if="store.publication.id != -1">
+      <tr v-for="(key, index) in keys" :key="key">
+        <td class="info_key">{{ values[index] }}</td>
+        <td class="info_value">{{ store.publicationDetail[key] }}</td>
+      </tr>
+    </table>

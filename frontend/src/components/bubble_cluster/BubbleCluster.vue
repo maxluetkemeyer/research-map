@@ -189,7 +189,7 @@ export default {
     },
   },
   async mounted() {
-    console.log("mounted!");
+    console.log("BubbleCluster Mounted!");
     await build();
     document.getElementById("visualization").innerHTML = "";
     this.renderChart();

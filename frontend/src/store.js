@@ -12,4 +12,6 @@ export const store = reactive({
   publication: {
     id: -1,
   },
+  sidebar: true,
+  baseUrl: "http://localhost:5000",
 });

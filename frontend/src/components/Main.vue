@@ -18,8 +18,9 @@ import BubbleCluster from "./bubble_cluster/BubbleCluster.vue";
       </div>
     </div>
 
-    <div id="toggle_sidebar">
-      <i class="fa-solid fa-chevron-right"></i>
+    <div id="toggle_sidebar" v-on:click="toggleSidebar">
+      <i class="fa-solid fa-chevron-right" v-if="store.sidebar"></i>
+      <i class="fa-solid fa-chevron-left" v-if="!store.sidebar"></i>
     </div>
 
     <BubbleCluster :key="store.query" />
@@ -28,7 +29,6 @@ import BubbleCluster from "./bubble_cluster/BubbleCluster.vue";
 
 <script>
 import { store } from "../store.js";
-//import { build } from "./bubble_cluster/build.js";
 
 export default {
   data() {
@@ -36,11 +36,23 @@ export default {
       store,
     };
   },
-  mounted() {
-    //build();
-  },
   components: {
     BubbleCluster,
+  },
+  methods: {
+    toggleSidebar() {
+      const sidebar = document.getElementById("sidebar");
+      const main = document.getElementById("main");
+      store.sidebar = !store.sidebar;
+
+      if (store.sidebar) {
+        sidebar.style.display = "unset";
+        main.style.gridArea = "main";
+      } else {
+        sidebar.style.display = "none";
+        main.style.gridArea = "main / main / sidebar / sidebar";
+      }
+    },
   },
 };
 </script>

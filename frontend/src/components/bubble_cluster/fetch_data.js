@@ -1,4 +1,6 @@
-const url = "http://localhost:5000/publications?"; //dont forget vpn
+import { store } from "../../store.js";
+
+const url = store.baseUrl + "/publications?"; //dont forget vpn
 
 export async function fetchData(params) {
   let response = await fetch(
@@ -20,14 +22,7 @@ export async function fetchData(params) {
     }
   );
 
-  console.log("hallo");
-
-  console.log(response.body);
-  console.log(response);
-
   let json = await response.json();
-
-  console.log("moin");
 
   console.log(json);
 

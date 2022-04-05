@@ -96,6 +96,7 @@ h1 {
 #sidebar {
   grid-area: sidebar;
   position: relative;
+  display: unset;
 }
 #footer {
   grid-area: footer;
