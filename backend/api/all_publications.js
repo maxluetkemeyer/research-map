@@ -16,10 +16,6 @@ export const allPublications = async (req, res) => {
 
 	const hierachie = createHierachie(rows, fields)
 	
-	res.set({
-		"Access-Control-Allow-Origin" : "*", 
-		"Access-Control-Allow-Credentials" : true,
-	});
 	res.send(rows)
 }
 

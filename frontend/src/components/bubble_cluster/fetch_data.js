@@ -13,7 +13,6 @@ export async function fetchData(params) {
       }),
     {
       method: "GET",
-      mode: "no-cors",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
