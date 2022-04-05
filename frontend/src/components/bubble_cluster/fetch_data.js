@@ -4,8 +4,8 @@ export async function fetchData(params) {
   let response = await fetch(
     url +
       new URLSearchParams({
-        yearMax: 1987,
-        yearMin: 1987,
+        yearMax: params.yearMax,
+        yearMin: params.yearMin,
         bwl: params.bwl,
         vwl: params.vwl,
         wi: params.wi,

@@ -184,6 +184,7 @@ export default {
   async mounted() {
     console.log("mounted!");
     await build();
+    document.getElementById("visualization").innerHTML = "";
     this.renderChart();
   },
   /*async updated() {

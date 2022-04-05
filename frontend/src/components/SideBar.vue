@@ -52,7 +52,7 @@ export default {
       yearMax: 2022,
       yearMin: 1978,
       direction: "rtl",
-      slider_values: [2022 - 2, 2022],
+      slider_values: [store.query.yearMin, store.query.yearMax],
       bwl: false,
       vwl: false,
       wi: true,
@@ -65,7 +65,8 @@ export default {
   methods: {
     clickedButton() {
       this.store.query = {
-        fetch_years: this.slider_values,
+        yearMax: this.slider_values[1],
+        yearMin: this.slider_values[0],
         bwl: this.bwl,
         vwl: this.vwl,
         wi: this.wi,
