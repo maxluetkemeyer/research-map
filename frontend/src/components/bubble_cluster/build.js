@@ -1,16 +1,11 @@
 import { createHierachie } from "./create_hierachie.js";
-//import { fetchData } from "./fetch_data.js";
+// eslint-disable-next-line no-unused-vars
+import { fetchData } from "./fetch_data.js";
 import { store } from "../../store.js";
 import { custom_response } from "./response.js";
 
 export async function build() {
-  /*let rows = await fetchData({
-    years: [2020, 2022],
-    bwl: true,
-    vwl: true,
-    wi: true,
-    sonstige: true,
-  });*/
+  //let rows = await fetchData(store.query);
   let rows = custom_response;
 
   const fields = ["orga_unit_id", "publication_year", "publication_id"];

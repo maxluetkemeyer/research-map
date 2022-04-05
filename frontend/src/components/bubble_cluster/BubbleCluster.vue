@@ -1,5 +1,8 @@
 <template>
-  <div id="visualization"></div>
+  <div>
+    <div id="visualization"></div>
+    <div style="display: none">{{ store }}</div>
+  </div>
 </template>
 
 <script>
@@ -178,17 +181,19 @@ export default {
       }
     },
   },
-  mounted() {
-    build();
+  async mounted() {
+    console.log("mounted!");
+    await build();
     this.renderChart();
   },
-  updated() {
-    this.renderChart();
-  },
-  beforeUpdate() {
+  /*async updated() {
+    console.log("bubbles updated!");
     var svg = d3.select("svg");
     svg.selectAll("*").remove();
-  },
+
+    await build();
+    this.renderChart();
+  },*/
 };
 </script>
 

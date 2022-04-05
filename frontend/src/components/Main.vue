@@ -22,7 +22,7 @@ import BubbleCluster from "./bubble_cluster/BubbleCluster.vue";
       <i class="fa-solid fa-chevron-right"></i>
     </div>
 
-    <BubbleCluster />
+    <BubbleCluster :key="store.query" />
   </div>
 </template>
 

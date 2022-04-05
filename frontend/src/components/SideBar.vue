@@ -73,7 +73,6 @@ export default {
   },
   methods: {
     clickedButton() {
-      console.log("hi");
       this.store.query = {
         fetch_years: this.fetch_years,
         bwl: this.bwl,
@@ -81,6 +80,7 @@ export default {
         wi: this.wi,
         sonstige: this.sonstige,
       };
+      console.log(store);
     },
   },
   mounted() {
