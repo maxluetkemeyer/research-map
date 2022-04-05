@@ -15,7 +15,7 @@ defineProps({
       <p id="settings_years_label">Jahre:</p>
       <Slider
         id="settings_yearSlider"
-        v-model="fetch_years"
+        v-model="slider_values"
         :min="yearMin"
         :max="yearMax"
         :direction="direction"
@@ -61,7 +61,7 @@ export default {
       yearMax: 2022,
       yearMin: 1978,
       direction: "rtl",
-      fetch_years: [2022 - 2, 2022],
+      slider_values: [2022 - 2, 2022],
       bwl: false,
       vwl: false,
       wi: true,
@@ -74,7 +74,7 @@ export default {
   methods: {
     clickedButton() {
       this.store.query = {
-        fetch_years: this.fetch_years,
+        fetch_years: this.slider_values,
         bwl: this.bwl,
         vwl: this.vwl,
         wi: this.wi,
