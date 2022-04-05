@@ -28,7 +28,7 @@ import BubbleCluster from "./bubble_cluster/BubbleCluster.vue";
 
 <script>
 import { store } from "../store.js";
-import { build } from "./bubble_cluster/build.js";
+//import { build } from "./bubble_cluster/build.js";
 
 export default {
   data() {
@@ -37,7 +37,7 @@ export default {
     };
   },
   mounted() {
-    build();
+    //build();
   },
   components: {
     BubbleCluster,
@@ -48,7 +48,6 @@ export default {
 <style scoped>
 #main_wrapper {
   position: relative;
-  height: 100%;
 }
 
 #toggle_sidebar {

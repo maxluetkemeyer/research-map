@@ -5,21 +5,43 @@ import Footer from "./components/Footer.vue";
 </script>
 
 <template>
-  <div id="grid-container">
-    <div id="header">Forschungslandkarte</div>
-    <div id="main">
-      <Main />
-    </div>
-    <div id="sidebar">
-      <Sidebar />
-    </div>
-    <div id="footer">
-      <Footer />
+  <div id="site-wrapper">
+    <div id="grid-container">
+      <div id="header">Forschungslandkarte</div>
+      <div id="main">
+        <Main />
+      </div>
+      <div id="sidebar">
+        <Sidebar />
+      </div>
+      <div id="footer">
+        <Footer />
+      </div>
     </div>
   </div>
 </template>
 
+<script>
+export default {
+  methods: {
+    resize() {
+      const wrapper = document.getElementById("site-wrapper");
+      const clientWidth = wrapper.clientWidth;
+      wrapper.style.width = clientWidth - 15 + "px";
+    },
+  },
+  mounted() {
+    this.resize();
+    window.addEventListener("resize", this.resize);
+  },
+};
+</script>
+
 <style>
+* {
+  box-sizing: border-box;
+}
+
 html,
 body {
   padding: 0;
@@ -27,13 +49,21 @@ body {
   font-size: 20px;
   font-family: sans-serif;
   position: relative;
+  background-color: #a5cf39;
 }
 
 h1 {
   margin-top: 0;
 }
 
+#site-wrapper {
+  position: relative;
+  width: 100vw;
+  padding: 10px;
+}
+
 #grid-container {
+  position: relative;
   display: grid;
   grid-template-areas:
     "header header header header header"
@@ -41,7 +71,6 @@ h1 {
     "footer footer footer footer footer";
   gap: 10px;
   background-color: #a5cf39;
-  padding: 10px;
 }
 
 #grid-container > div {
@@ -55,7 +84,6 @@ h1 {
 #main {
   grid-area: main;
   position: relative;
-  height: 800px;
   /**grid-area: main / main / sidebar / sidebar;**/
 }
 #sidebar {

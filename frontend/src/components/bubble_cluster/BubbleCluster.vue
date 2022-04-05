@@ -1,38 +1,17 @@
 <template>
-  <div></div>
+  <div id="visualization"></div>
 </template>
 
 <script>
 import * as d3 from "d3";
 import { store } from "../../store.js";
+import { color, pack } from "./diagram.js";
+import { build } from "./build.js";
 
 export default {
   methods: {
-    color(detph) {
-      switch (detph) {
-        case 0:
-          return "lightgrey";
-        case 1:
-          return "#d9ebad";
-        case 2:
-          return "#cce6ff";
-        case 3:
-          return "#ffddcc";
-      }
-    },
-    pack(data) {
-      d3
-        .pack()
-        .size([60, 60]) //size of white circles (leafs)
-        .padding(4)(
-        d3
-          .hierarchy(data)
-          .sum((d) => d.value)
-          .sort((a, b) => b.value - a.value)
-      );
-    },
     renderChart() {
-      var root = this.pack(store.myData);
+      var root = pack(store.data);
       console.log(root); //all generated nodes as data
       let focus = root;
       let view;
@@ -47,8 +26,7 @@ export default {
         .attr("height", "100%")
         .attr("viewBox", viewbox)
         .style("display", "block")
-        //.style("margin", "0 -14px")
-        .style("background", this.color(0))
+        //.style("background", color(0))
         .style("cursor", "pointer")
         .on("click", (event) => zoom(event, root));
 
@@ -57,7 +35,7 @@ export default {
         .selectAll("circle")
         .data(root.descendants().slice(1))
         .join("circle")
-        .attr("fill", (d) => (d.children ? this.color(d.depth) : "lightgrey")) //lightgrey
+        .attr("fill", (d) => (d.children ? color(d.depth) : "lightgrey")) //lightgrey
         .attr("pointer-events", (d) => (!d.children ? "none" : null))
         .on("mouseover", function () {
           d3.select(this).attr("stroke", "#000");
@@ -198,20 +176,14 @@ export default {
             if (d.parent !== focus) this.style.display = "none";
           });
       }
-
-      const container = d3
-        .select("div")
-        .style("height", `400px`)
-        .style("width", `400px`);
-      // add the y Axis
-      container.append(svg.node);
     },
   },
   mounted() {
-    if (store.hasData) this.renderChart();
+    build();
+    this.renderChart();
   },
   updated() {
-    if (store.hasData) this.renderChart();
+    this.renderChart();
   },
   beforeUpdate() {
     var svg = d3.select("svg");
@@ -219,3 +191,10 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+#visualization {
+  width: 100%;
+  height: 40vw;
+}
+</style>
