@@ -9,4 +9,7 @@ export const store = reactive({
     wi: true,
     sonstige: true,
   },
+  publication: {
+    id: -1,
+  },
 });

@@ -2,6 +2,7 @@ import 'dotenv/config'
 import express from 'express'
 import { allPublications } from './api/all_publications.js'
 import { connection } from './api/mysql.js'
+import { publicationDetails } from './api/publication_details.js'
 
 const app = express()
 const port = 5000
@@ -32,6 +33,7 @@ app.get("/publicationsOLD", async (req, res) => {
 })
 
 app.get("/publications", allPublications)
+app.get("/publication", publicationDetails)
 
 app.listen(port, () => {
 	console.log(`Example app listening on port ${port}`)

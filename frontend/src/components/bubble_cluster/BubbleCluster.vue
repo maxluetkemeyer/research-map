@@ -13,6 +13,11 @@ import { build } from "./build.js";
 
 export default {
   methods: {
+    publicationClicked(publication) {
+      console.log(publication);
+
+      store.publication = publication;
+    },
     renderChart() {
       var root = pack(store.data);
       console.log(root); //all generated nodes as data
@@ -62,7 +67,9 @@ export default {
         .join("text")
         .on(
           "click",
-          (event, d) => (console.log(d.data), event.stopPropagation())
+          (event, d) => (
+            this.publicationClicked(d.data), event.stopPropagation()
+          )
         )
         .style("fill-opacity", (d) => (d.parent === root ? 1 : 0))
         .style("display", (d) => (d.parent === root ? "inline" : "none"))
@@ -187,14 +194,6 @@ export default {
     document.getElementById("visualization").innerHTML = "";
     this.renderChart();
   },
-  /*async updated() {
-    console.log("bubbles updated!");
-    var svg = d3.select("svg");
-    svg.selectAll("*").remove();
-
-    await build();
-    this.renderChart();
-  },*/
 };
 </script>
 

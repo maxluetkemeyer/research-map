@@ -1,7 +1,7 @@
 <script setup>
 import Sidebar from "./components/SideBar.vue";
 import Main from "./components/Main.vue";
-import Footer from "./components/Footer.vue";
+import Footer from "./components/footer/Footer.vue";
 </script>
 
 <template>
@@ -15,14 +15,21 @@ import Footer from "./components/Footer.vue";
         <Sidebar />
       </div>
       <div id="footer">
-        <Footer />
+        <Footer :key="store.publication.id" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { store } from "./store.js";
+
 export default {
+  data() {
+    return {
+      store,
+    };
+  },
   methods: {
     resize() {
       const wrapper = document.getElementById("site-wrapper");
