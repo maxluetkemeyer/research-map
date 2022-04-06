@@ -1,4 +1,4 @@
-const units_bwl = [
+export const units_bwl = [
     4958,
     4967,
     4968,
@@ -62,7 +62,7 @@ const units_bwl = [
 
 ];
 
-const units_vwl = [
+export const units_vwl = [
     4990,
     4991,
     4992,
@@ -93,7 +93,8 @@ const units_vwl = [
     21464,
     21667,
 ];
-const units_wi = [
+
+export const units_wi = [
     4959,
     4961,
     4962,
@@ -116,7 +117,7 @@ const units_wi = [
     21691,
     21788
 ];
-const units_sonstige = [
+export const units_sonstige = [
     4940,
     4957,
     5034,

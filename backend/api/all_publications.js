@@ -1,23 +1,40 @@
-import { createHierachie } from './create_hierachie.js'
 import { connection } from './mysql.js'
+import { units_bwl, units_vwl, units_wi } from "../misc/orga_units.js";
 
 export const allPublications = async (req, res) => {
-	console.log("Anfrage!")
-
-	//console.log(req.query)
+	// Query
+	console.log(req.query)
 	const yearMax = req.query.yearMax
 	const yearMin = req.query.yearMin
+	const bwl = req.query.bwl ?? false;
+	const vwl = req.query.vwl ?? false;
+	const wi = req.query.wi ?? false;
+	const sonstige = req.query.sonstige ?? false;
 
+	// SQL Query
     const [rows, fields] = await together(yearMax, yearMin)
 
-	console.log(rows[0])
+	// Filter
+	const filteredRows = rows.filter(entry => {
+		const id = entry.orga_unit_id;
 
-	
+		if(bwl  && units_bwl.includes(id)) return true;
+		if (vwl  && units_vwl.includes(id)) return true;
+		if (wi  && units_wi.includes(id)) return true;
+		if (sonstige) {
+			if(units_bwl.includes(id) || units_vwl.includes(id) || units_wi.includes(id)){
+				return false;
+			}
+			return true;
+		}
+		return false;
+	});
 
-	const hierachie = createHierachie(rows, fields)
+	console.log(filteredRows[0])
 	
-	res.send(rows)
+	res.send(filteredRows)
 }
+
 
 
 const together = async (yearMax, yearMin) => {

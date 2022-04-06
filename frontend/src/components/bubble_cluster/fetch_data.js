@@ -11,7 +11,7 @@ export async function fetchData(params) {
         bwl: params.bwl,
         vwl: params.vwl,
         wi: params.wi,
-        andere: params.andere,
+        sonstige: params.sonstige,
       }),
     {
       method: "GET",

@@ -1,4 +1,3 @@
-import { createHierachie } from './create_hierachie.js'
 import { connection } from './mysql.js'
 
 export const publicationDetails = async (req, res) => {
