@@ -6,10 +6,10 @@ export const allPublications = async (req, res) => {
 	console.log(req.query)
 	const yearMax = req.query.yearMax
 	const yearMin = req.query.yearMin
-	const bwl = req.query.bwl ?? false;
-	const vwl = req.query.vwl ?? false;
-	const wi = req.query.wi ?? false;
-	const sonstige = req.query.sonstige ?? false;
+	const bwl = (req.query.bwl === "true");
+	const vwl = (req.query.vwl === "true");
+	const wi = (req.query.wi === "true");
+	const sonstige = (req.query.sonstige === "true");
 
 	// SQL Query
     const [rows, fields] = await together(yearMax, yearMin)
