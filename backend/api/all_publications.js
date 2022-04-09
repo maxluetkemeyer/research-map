@@ -11,24 +11,38 @@ export const allPublications = async (req, res) => {
 	const wi = (req.query.wi === "true");
 	const sonstige = (req.query.sonstige === "true");
 
+
 	// SQL Query
     const [rows, fields] = await together(yearMax, yearMin)
 
-	// Filter
-	const filteredRows = rows.filter(entry => {
-		const id = entry.orga_unit_id;
 
-		if(bwl  && units_bwl.includes(id)) return true;
-		if (vwl  && units_vwl.includes(id)) return true;
-		if (wi  && units_wi.includes(id)) return true;
-		if (sonstige) {
-			if(units_bwl.includes(id) || units_vwl.includes(id) || units_wi.includes(id)){
-				return false;
-			}
-			return true;
+	// Filter
+	const filteredRows = []
+	for(let row of rows){
+		const orgaId = row.orga_unit_id;
+		if(bwl && units_bwl.includes(orgaId)){
+			filteredRows.push(row)
+			continue;
 		}
-		return false;
-	});
+		if(vwl && units_vwl.includes(orgaId)){
+			filteredRows.push(row)
+			continue;
+		}
+		if(wi && units_wi.includes(orgaId)){
+			filteredRows.push(row)
+			continue;
+		}
+		if(sonstige){
+			const notInBwl = !bwl && !units_bwl.includes(orgaId)
+			const notInVwl = !vwl && !units_vwl.includes(orgaId)
+			const notInWi = !wi && !units_wi.includes(orgaId)
+
+			if(notInBwl && notInVwl && notInWi){
+				filteredRows.push(row);
+				continue;
+			}
+		}
+	}
 
 	console.log(filteredRows[0])
 	
