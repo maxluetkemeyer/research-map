@@ -1,5 +1,6 @@
 <script setup>
 import BubbleCluster from "./bubble_cluster/BubbleCluster.vue";
+import ListView from "./list_view/ListView.vue";
 </script>
 
 <template>
@@ -7,13 +8,13 @@ import BubbleCluster from "./bubble_cluster/BubbleCluster.vue";
     <!--<div style="width: 300px; height: 300px; background-color: aqua"></div>-->
 
     <div id="menu">
-      <div class="menu_item" id="menu_bubble">
+      <div class="menu_item" id="menu_bubble" @click="currentView = 'bubble'">
         <i class="fa-solid fa-circle"></i>
       </div>
       <div class="menu_item" id="menu_dendrogram">
         <i class="fa-solid fa-diagram-project"></i>
       </div>
-      <div class="menu_item" id="menu_list">
+      <div class="menu_item" id="menu_list" @click="currentView = 'list'">
         <i class="fa-solid fa-list"></i>
       </div>
     </div>
@@ -23,21 +24,33 @@ import BubbleCluster from "./bubble_cluster/BubbleCluster.vue";
       <i class="fa-solid fa-chevron-left" v-if="!store.sidebar"></i>
     </div>
 
-    <BubbleCluster :key="store.query" />
+    <BubbleCluster :rows="rows" v-if="currentView === 'bubble'" />
+    <ListView :rows="rows" v-if="currentView === 'list'" />
   </div>
 </template>
 
 <script>
 import { store } from "../store.js";
+// eslint-disable-next-line no-unused-vars
+import { fetchData } from "./bubble_cluster/fetch_data.js";
+import { getCustomResponse } from "./bubble_cluster/response.js";
 
 export default {
   data() {
     return {
       store,
+      rows: [],
+      currentView: "bubble",
     };
   },
   components: {
     BubbleCluster,
+    ListView,
+  },
+  async created() {
+    //let rows = await fetchData(store.query);
+    let rows = await getCustomResponse();
+    this.rows = rows;
   },
   methods: {
     toggleSidebar() {

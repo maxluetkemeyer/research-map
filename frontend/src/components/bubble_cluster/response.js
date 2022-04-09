@@ -1,3 +1,7 @@
+export async function getCustomResponse() {
+  return custom_response;
+}
+
 export const custom_response = [
   {
     publication_id: 17892,

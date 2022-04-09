@@ -9,7 +9,7 @@ import Footer from "./components/footer/Footer.vue";
     <div id="grid-container">
       <div id="header">Forschungslandkarte</div>
       <div id="main">
-        <Main />
+        <Main :key="store.query" />
       </div>
       <div id="sidebar">
         <Sidebar />

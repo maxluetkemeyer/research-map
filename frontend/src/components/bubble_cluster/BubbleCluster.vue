@@ -12,6 +12,12 @@ import { color, pack } from "./diagram.js";
 import { build } from "./build.js";
 
 export default {
+  props: ["rows"],
+  data() {
+    return {
+      map: {},
+    };
+  },
   methods: {
     publicationClicked(publication) {
       console.log(publication);
@@ -19,7 +25,7 @@ export default {
       store.publication = publication;
     },
     renderChart() {
-      var root = pack(store.data);
+      var root = pack(this.map);
       console.log(root); //all generated nodes as data
       let focus = root;
       let view;
@@ -188,9 +194,10 @@ export default {
       }
     },
   },
-  async mounted() {
+  mounted() {
+    this.map = build(this.rows);
     console.log("BubbleCluster Mounted!");
-    await build();
+    console.log(this.map);
     document.getElementById("visualization").innerHTML = "";
     this.renderChart();
   },
