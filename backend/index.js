@@ -14,7 +14,7 @@ app.get('/', (req, res) => {
 	res.send('publication map')
 })
 
-app.use("/publicationmap/embedded", express.static("/srv/public/"))
+app.use("/publicationmap/embedded", express.static(process.env.HTML_PATH))
 
 app.get("/test", (req, res) => {
 	res.send("hi")
