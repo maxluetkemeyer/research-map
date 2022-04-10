@@ -10,3 +10,16 @@ const credentials = {
 
 // create the connection
 export const connection = mysql.createPool(credentials)
+
+export const getCacheId = async () => {
+    try {
+		const query = `SELECT * FROM wwu_cache.wwu_cache_info ORDER BY id DESC LIMIT 1;`
+    
+		const [rows, fields] = await connection.query(query)
+
+        const cacheId = rows[0].reading_source ?? 1;
+		return cacheId
+	} catch (e) {
+		return 1;
+	}
+}

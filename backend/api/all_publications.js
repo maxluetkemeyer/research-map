@@ -1,4 +1,4 @@
-import { connection } from './mysql.js'
+import { connection, getCacheId } from './mysql.js'
 import { units_bwl, units_vwl, units_wi } from "../misc/orga_units.js";
 
 export const allPublications = async (req, res) => {
@@ -52,6 +52,9 @@ export const allPublications = async (req, res) => {
 
 
 const together = async (yearMax, yearMin) => {
+	const cacheId = await getCacheId();
+	const table_prefix = "wwu_cache"+cacheId;
+
 	try {
 		const query = `
 			SELECT 
@@ -63,25 +66,25 @@ const together = async (yearMax, yearMin) => {
 			# All Publications
 			FROM	(
 				SELECT *
-				FROM wwu_cache2_publication 
-				WHERE wwu_cache2_publication.publication_year BETWEEN ${yearMin} AND ${yearMax}
+				FROM ${table_prefix}_publication 
+				WHERE ${table_prefix}_publication.publication_year BETWEEN ${yearMin} AND ${yearMax}
 			) PUBLICATIONS
 			# Publication Card Infos
 			LEFT JOIN	(
 				SELECT * 
-				FROM wwu_cache2_publication_card 
+				FROM ${table_prefix}_publication_card 
 			) PUBLICATIONCARDS
 			ON PUBLICATIONS.id = PUBLICATIONCARDS.publication_id 
 			# Card
 			LEFT JOIN	(
 				SELECT * 
-				FROM wwu_cache2_card
+				FROM ${table_prefix}_card
 			) CARDS
 			ON PUBLICATIONCARDS.card_id = CARDS.id 
 			# OrgaUnit
 			LEFT JOIN	(
 				SELECT * 
-				FROM wwu_cache2_orga_unit
+				FROM ${table_prefix}_orga_unit
 			) ORGAUNITS
 			ON CARDS.orga_unit_id = ORGAUNITS.id 
 		`

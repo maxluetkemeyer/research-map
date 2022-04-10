@@ -1,4 +1,4 @@
-import { connection } from './mysql.js'
+import { connection, getCacheId } from './mysql.js'
 
 export const publicationDetails = async (req, res) => {
 	console.log("Anfrage!")
@@ -16,27 +16,30 @@ export const publicationDetails = async (req, res) => {
 
 
 const together = async (publicationId) => {
+	const cacheId = await getCacheId();
+	const table_prefix = "wwu_cache"+cacheId;
+
 	try {
 		const query = `
 		SELECT * 
-		FROM wwu_cache1_publication
+		FROM ${table_prefix}_publication
 		AS PUBLICATIONS
 		# Publication Card Infos
 		LEFT JOIN	(
 			SELECT * 
-			FROM wwu_cache2_publication_card 
+			FROM ${table_prefix}_publication_card 
 		) PUBLICATIONCARDS
 		ON PUBLICATIONS.id = PUBLICATIONCARDS.publication_id 
 		# Card
 		LEFT JOIN	(
 			SELECT * 
-			FROM wwu_cache2_card
+			FROM ${table_prefix}_card
 		) CARDS
 		ON PUBLICATIONCARDS.card_id = CARDS.id 
 		# OrgaUnit
 		LEFT JOIN	(
 			SELECT * 
-			FROM wwu_cache2_orga_unit
+			FROM ${table_prefix}_orga_unit
 		) ORGAUNITS
 		ON CARDS.orga_unit_id = ORGAUNITS.id 
 		WHERE PUBLICATIONS.id=${publicationId}
