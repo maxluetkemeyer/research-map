@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="listView">
     <table>
       <tr>
         <th @click="sort('publication_title')">
@@ -63,6 +63,13 @@ export default {
       currentSort: "publication_title",
       currentSortDir: "asc",
     };
+  },
+  created() {
+    try {
+      document.getElementById("listView").innerHTML = "";
+    } catch (e) {
+      //do nothing
+    }
   },
   methods: {
     sort(s) {

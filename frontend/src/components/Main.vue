@@ -24,8 +24,12 @@ import ListView from "./list_view/ListView.vue";
       <i class="fa-solid fa-chevron-left" v-if="!store.sidebar"></i>
     </div>
 
-    <BubbleCluster :rows="rows" v-if="currentView === 'bubble'" />
-    <ListView :rows="rows" v-if="currentView === 'list'" />
+    <BubbleCluster
+      :key="rows[0]"
+      :rows="rows"
+      v-if="currentView === 'bubble'"
+    />
+    <ListView :key="rows[0]" :rows="rows" v-if="currentView === 'list'" />
   </div>
 </template>
 

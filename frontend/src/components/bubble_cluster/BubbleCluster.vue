@@ -1,20 +1,18 @@
 <template>
-  <div>
-    <div id="visualization"></div>
-    <div style="display: none">{{ store }}</div>
-  </div>
+  <div id="visualization"></div>
 </template>
 
 <script>
 import * as d3 from "d3";
 import { store } from "../../store.js";
 import { color, pack } from "./diagram.js";
-import { build } from "./build.js";
+import { createHierachie } from "./create_hierachie.js";
 
 export default {
   props: ["rows"],
   data() {
     return {
+      store,
       map: {},
     };
   },
@@ -195,9 +193,15 @@ export default {
     },
   },
   mounted() {
-    this.map = build(this.rows);
-    console.log("BubbleCluster Mounted!");
-    console.log(this.map);
+    const fields = ["orga_unit_id", "publication_year", "publication_id"];
+    const fieldsName = [
+      "orga_unit_name",
+      "publication_year",
+      "publication_title",
+    ];
+
+    this.map = createHierachie(this.rows, fields, fieldsName);
+
     document.getElementById("visualization").innerHTML = "";
     this.renderChart();
   },
@@ -205,7 +209,7 @@ export default {
 </script>
 
 <style scoped>
-#visualization {
+div {
   width: 100%;
   height: 40vw;
 }
