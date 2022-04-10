@@ -11,9 +11,9 @@ import ListView from "./list_view/ListView.vue";
       <div class="menu_item" id="menu_bubble" @click="currentView = 'bubble'">
         <i class="fa-solid fa-circle"></i>
       </div>
-      <div class="menu_item" id="menu_dendrogram">
+      <!--<div class="menu_item" id="menu_dendrogram">
         <i class="fa-solid fa-diagram-project"></i>
-      </div>
+      </div>-->
       <div class="menu_item" id="menu_list" @click="currentView = 'list'">
         <i class="fa-solid fa-list"></i>
       </div>
