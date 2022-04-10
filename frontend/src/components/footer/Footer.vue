@@ -5,7 +5,7 @@
     <table id="info" v-if="store.publicationId != -1">
       <tr v-for="(value, key) in store.publicationDetail" :key="value">
         <td class="info_key">{{ key }}</td>
-        <td class="info_value">{{ store.publicationDetail[key] }}</td>
+        <td class="info_value" v-html="store.publicationDetail[key]"></td>
       </tr>
     </table>
   </div>
