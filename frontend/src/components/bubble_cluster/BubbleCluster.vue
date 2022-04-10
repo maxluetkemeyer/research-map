@@ -18,9 +18,7 @@ export default {
   },
   methods: {
     publicationClicked(publication) {
-      console.log(publication);
-
-      store.publication = publication;
+      store.publicationId = publication.id;
     },
     renderChart() {
       var root = pack(this.map);
@@ -69,12 +67,14 @@ export default {
         .selectAll("text")
         .data(root.descendants())
         .join("text")
-        .on(
-          "click",
-          (event, d) => (
-            this.publicationClicked(d.data), event.stopPropagation()
-          )
-        )
+        .on("click", (event, d) => {
+          if (d.data.children.length == 0) {
+            this.publicationClicked(d.data);
+          } else {
+            zoom(event, d);
+          }
+          event.stopPropagation();
+        })
         .style("fill-opacity", (d) => (d.parent === root ? 1 : 0))
         .style("display", (d) => (d.parent === root ? "inline" : "none"))
         .style("fill", "#000")

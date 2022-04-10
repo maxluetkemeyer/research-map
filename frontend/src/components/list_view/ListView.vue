@@ -44,24 +44,34 @@
           ></i>
         </th>
       </tr>
-      <tr v-for="row in sortedRows" :key="row.publication_id">
+      <tr
+        v-for="row in sortedRows"
+        :key="row.publication_id"
+        @click="publicationClicked(row.publication_id)"
+      >
         <td>
-          {{ row.publication_title }}
+          <p>{{ row.publication_title }}</p>
         </td>
-        <td>{{ row.publication_year }}</td>
-        <td>{{ row.orga_unit_name }}</td>
+        <td>
+          <p>{{ row.publication_year }}</p>
+        </td>
+        <td>
+          <p>{{ row.orga_unit_name }}</p>
+        </td>
       </tr>
     </table>
   </div>
 </template>
 
 <script>
+import { store } from "../../store.js";
 export default {
   props: ["rows"],
   data() {
     return {
       currentSort: "publication_title",
       currentSortDir: "asc",
+      store,
     };
   },
   created() {
@@ -78,6 +88,9 @@ export default {
         this.currentSortDir = this.currentSortDir === "asc" ? "desc" : "asc";
       }
       this.currentSort = s;
+    },
+    publicationClicked(publicationId) {
+      this.store.publicationId = publicationId;
     },
   },
   computed: {
@@ -114,8 +127,10 @@ th {
   padding: 8px;
 }
 
-th {
+p {
   cursor: pointer;
+  margin: 0;
+  padding: 0;
 }
 
 tr:nth-child(even) {

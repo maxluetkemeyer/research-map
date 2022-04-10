@@ -2,7 +2,7 @@
   <div id="footer_wrapper">
     <h1 id="details_headding">Details</h1>
 
-    <table id="info" v-if="store.publication.id != -1">
+    <table id="info" v-if="store.publicationId != -1">
       <tr v-for="(value, key) in store.publicationDetail" :key="value">
         <td class="info_key">{{ key }}</td>
         <td class="info_value">{{ store.publicationDetail[key] }}</td>
@@ -28,7 +28,7 @@ export default {
   methods: {
     async updateData() {
       /*const rows = await fetchDetails({
-        publicationId: this.store.publication.id,
+        publicationId: this.store.publicationId,
       });*/
       const rows = details_response;
 
@@ -36,10 +36,12 @@ export default {
 
       this.store.publicationDetail = publication;
 
-      document.getElementById("details_headding").scrollIntoView({
-        block: "start",
-        behavior: "smooth",
-      });
+      setTimeout(() => {
+        document.getElementById("details_headding").scrollIntoView({
+          block: "start",
+          behavior: "smooth",
+        });
+      }, 100);
     },
   },
   async mounted() {

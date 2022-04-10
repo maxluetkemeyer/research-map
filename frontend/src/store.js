@@ -9,9 +9,7 @@ export const store = reactive({
     wi: true,
     sonstige: true,
   },
-  publication: {
-    id: -1,
-  },
+  publicationId: -1,
   sidebar: true,
   baseUrl: "http://localhost:5000",
 });

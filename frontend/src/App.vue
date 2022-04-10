@@ -15,7 +15,7 @@ import Footer from "./components/footer/Footer.vue";
         <Sidebar />
       </div>
       <div id="footer">
-        <Footer :key="store.publication.id" />
+        <Footer :key="store.publicationId" />
       </div>
     </div>
   </div>
