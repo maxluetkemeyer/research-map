@@ -1,11 +1,32 @@
 <template>
   <div id="footer_wrapper">
     <h1 id="details_headding">Details</h1>
-
+    <p v-for="step in store.visualizationPath" :key="step">
+      <i class="fa-solid fa-chevron-right"></i>
+      {{ step }}
+    </p>
+    <br /><br />
     <table id="info" v-if="store.publicationId != -1">
       <tr v-for="(value, key) in store.publicationDetail" :key="value">
-        <td class="info_key">{{ key }}</td>
-        <td class="info_value" v-html="store.publicationDetail[key]"></td>
+        <td
+          class="info_key"
+          v-if="
+            store.publicationDetail[key] != '' &&
+            store.publicationDetail[key] != undefined &&
+            store.publicationDetail[key] != null
+          "
+        >
+          {{ key }}
+        </td>
+        <td
+          class="info_value"
+          v-if="
+            store.publicationDetail[key] != '' &&
+            store.publicationDetail[key] != undefined &&
+            store.publicationDetail[key] != null
+          "
+          v-html="store.publicationDetail[key]"
+        ></td>
       </tr>
     </table>
   </div>
@@ -21,8 +42,6 @@ export default {
   data() {
     return {
       store,
-      keys: ["publication_title", "publication_year", "orga_unit_name"],
-      values: ["Title", "Jahr", "Organisation"],
     };
   },
   methods: {
@@ -32,9 +51,12 @@ export default {
       });*/
       const rows = details_response;
 
+      if (rows.length == 0) return;
+
       const publication = rows[0]; //TODO:
 
       this.store.publicationDetail = publication;
+      console.log(publication);
 
       setTimeout(() => {
         document.getElementById("details_headding").scrollIntoView({
@@ -54,6 +76,16 @@ export default {
 <style>
 #footer_wrapper {
   position: relative;
+}
+h1 {
+  display: inline;
+  margin-right: 10px;
+}
+p {
+  padding: 0;
+  margin: 0;
+  margin-right: 10px;
+  display: inline;
 }
 
 table,

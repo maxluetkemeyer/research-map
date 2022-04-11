@@ -35,6 +35,7 @@ const insertRow = (map, row, fields, fieldsName) => {
         name: selectedName,
         value: 1,
         children: [],
+        //parent: map,
       };
 
       children.push(newChild);

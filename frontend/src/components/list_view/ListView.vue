@@ -74,13 +74,6 @@ export default {
       store,
     };
   },
-  created() {
-    try {
-      document.getElementById("listView").innerHTML = "";
-    } catch (e) {
-      //do nothing
-    }
-  },
   methods: {
     sort(s) {
       //if s == current sort, reverse
@@ -95,7 +88,8 @@ export default {
   },
   computed: {
     sortedRows() {
-      return [...this.rows].sort((a, b) => {
+      const rowsCopy = this.rows; //[...this.rows]
+      return rowsCopy.sort((a, b) => {
         let modifier = 1;
         if (this.currentSortDir === "desc") modifier = -1;
         if (a[this.currentSort] < b[this.currentSort]) return -1 * modifier;

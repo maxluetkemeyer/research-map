@@ -2,12 +2,15 @@
 import Sidebar from "./components/SideBar.vue";
 import Main from "./components/Main.vue";
 import Footer from "./components/footer/Footer.vue";
+import Header from "./components/header/Header.vue";
 </script>
 
 <template>
   <div id="site-wrapper">
     <div id="grid-container">
-      <div id="header">Forschungslandkarte</div>
+      <div id="header">
+        <Header />
+      </div>
       <div id="main">
         <Main :key="store.query" />
       </div>
@@ -18,6 +21,7 @@ import Footer from "./components/footer/Footer.vue";
         <Footer :key="store.publicationId" />
       </div>
     </div>
+    <p id="credits">Von Max Lütkemeyer</p>
   </div>
 </template>
 
@@ -61,6 +65,12 @@ body {
 
 h1 {
   margin-top: 0;
+}
+
+#credits {
+  position: relative;
+  float: right;
+  color: #858585;
 }
 
 #site-wrapper {

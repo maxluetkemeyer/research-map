@@ -12,4 +12,5 @@ export const store = reactive({
   publicationId: -1,
   sidebar: true,
   baseUrl: "http://localhost:5000",
+  visualizationPath: [],
 });

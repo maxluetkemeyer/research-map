@@ -38,7 +38,10 @@ export default {
         .style("display", "block")
         //.style("background", color(0))
         .style("cursor", "pointer")
-        .on("click", (event) => zoom(event, root));
+        .on("click", (event) => {
+          zoom(event, root);
+          store.visualizationPath = [];
+        });
 
       const node = svg
         .append("g")
@@ -53,7 +56,11 @@ export default {
         .on("mouseout", function () {
           d3.select(this).attr("stroke", null);
         })
-        .on("click", (event, d) => (zoom(event, d), event.stopPropagation())); //focus !== d &&
+        .on("click", (event, d) => {
+          zoom(event, d);
+          store.visualizationPath.push(d.data.name);
+          event.stopPropagation();
+        }); //focus !== d &&
 
       const dy = 6;
       const fontSize = 5;
@@ -73,6 +80,17 @@ export default {
           } else {
             zoom(event, d);
           }
+          /*let element = d.data;
+          store.visualizationPath = [];
+          // eslint-disable-next-line no-constant-condition
+          while (true) {
+            if (element.parent == null) {
+              break;
+            }
+            store.visualizationPath.push(element.name);
+            element = element.parent;
+          }*/
+          store.visualizationPath.push(d.data.name);
           event.stopPropagation();
         })
         .style("fill-opacity", (d) => (d.parent === root ? 1 : 0))
