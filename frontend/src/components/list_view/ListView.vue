@@ -3,45 +3,55 @@
     <table>
       <tr>
         <th @click="sort('publication_title')">
-          Titel
-          <i
-            class="fa-solid fa-arrow-up"
-            v-if="
-              currentSort === 'publication_title' && currentSortDir === 'desc'
-            "
-          ></i>
-          <i
-            class="fa-solid fa-arrow-down"
-            v-if="
-              currentSort === 'publication_title' && currentSortDir === 'asc'
-            "
-          ></i>
+          <p>
+            Titel
+            <i
+              class="fa-solid fa-arrow-up"
+              v-if="
+                currentSort === 'publication_title' && currentSortDir === 'desc'
+              "
+            ></i>
+            <i
+              class="fa-solid fa-arrow-down"
+              v-if="
+                currentSort === 'publication_title' && currentSortDir === 'asc'
+              "
+            ></i>
+          </p>
         </th>
         <th @click="sort('publication_year')">
-          Jahr
-          <i
-            class="fa-solid fa-arrow-up"
-            v-if="
-              currentSort === 'publication_year' && currentSortDir === 'desc'
-            "
-          ></i>
-          <i
-            class="fa-solid fa-arrow-down"
-            v-if="
-              currentSort === 'publication_year' && currentSortDir === 'asc'
-            "
-          ></i>
+          <p>
+            Jahr
+            <i
+              class="fa-solid fa-arrow-up"
+              v-if="
+                currentSort === 'publication_year' && currentSortDir === 'desc'
+              "
+            ></i>
+            <i
+              class="fa-solid fa-arrow-down"
+              v-if="
+                currentSort === 'publication_year' && currentSortDir === 'asc'
+              "
+            ></i>
+          </p>
         </th>
         <th @click="sort('orga_unit_name')">
-          Orga Unit
-          <i
-            class="fa-solid fa-arrow-up"
-            v-if="currentSort === 'orga_unit_name' && currentSortDir === 'desc'"
-          ></i>
-          <i
-            class="fa-solid fa-arrow-down"
-            v-if="currentSort === 'orga_unit_name' && currentSortDir === 'asc'"
-          ></i>
+          <p>
+            Orga Unit
+            <i
+              class="fa-solid fa-arrow-up"
+              v-if="
+                currentSort === 'orga_unit_name' && currentSortDir === 'desc'
+              "
+            ></i>
+            <i
+              class="fa-solid fa-arrow-down"
+              v-if="
+                currentSort === 'orga_unit_name' && currentSortDir === 'asc'
+              "
+            ></i>
+          </p>
         </th>
       </tr>
       <tr
@@ -76,6 +86,7 @@ export default {
   },
   methods: {
     sort(s) {
+      console.log("Sort clicked " + s);
       //if s == current sort, reverse
       if (s === this.currentSort) {
         this.currentSortDir = this.currentSortDir === "asc" ? "desc" : "asc";
@@ -88,8 +99,7 @@ export default {
   },
   computed: {
     sortedRows() {
-      const rowsCopy = this.rows; //[...this.rows]
-      return rowsCopy.sort((a, b) => {
+      return [...this.rows].sort((a, b) => {
         let modifier = 1;
         if (this.currentSortDir === "desc") modifier = -1;
         if (a[this.currentSort] < b[this.currentSort]) return -1 * modifier;
