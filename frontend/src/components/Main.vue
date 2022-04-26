@@ -5,8 +5,6 @@ import ListView from "./list_view/ListView.vue";
 
 <template>
   <div id="main_wrapper">
-    <!--<div style="width: 300px; height: 300px; background-color: aqua"></div>-->
-
     <div id="menu">
       <div class="menu_item" id="menu_bubble" @click="currentView = 'bubble'">
         <i class="fa-solid fa-circle"></i>
@@ -42,9 +40,7 @@ import ListView from "./list_view/ListView.vue";
 
 <script>
 import { store } from "../store.js";
-// eslint-disable-next-line no-unused-vars
-import { fetchData } from "./bubble_cluster/fetch_data.js";
-import { getCustomResponse } from "./bubble_cluster/response.js";
+import { fetchData } from "../fetch/publications/fetch_publications.js";
 
 export default {
   data() {
@@ -59,8 +55,7 @@ export default {
     ListView,
   },
   async created() {
-    //let rows = await fetchData(store.query);
-    let rows = await getCustomResponse();
+    let rows = await fetchData(store.query);
     this.rows = rows;
   },
   methods: {

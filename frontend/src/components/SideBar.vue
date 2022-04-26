@@ -13,6 +13,7 @@
       />
       <!--:merge="8"-->
     </div>
+    <p>{{ slider_values[1] }} - {{ slider_values[0] }}</p>
 
     <ul id="settings_degreeprograms">
       <li class="settings_degreeprograms">
@@ -74,9 +75,6 @@ export default {
       };
       console.log(store);
     },
-  },
-  mounted() {
-    //
   },
 };
 </script>

@@ -1,8 +1,4 @@
-export async function getCustomResponse() {
-  return custom_response;
-}
-
-export const custom_response = [
+export const response_test_publications = [
   {
     publication_id: 17892,
     publication_title: "Auslandsmarkterschließungs-Strategien",

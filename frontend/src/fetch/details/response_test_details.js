@@ -1,4 +1,4 @@
-export const details_response = [
+export const response_test_details = [
   {
     id: 4965,
     cris_id: 4965,
