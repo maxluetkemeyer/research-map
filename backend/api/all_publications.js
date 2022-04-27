@@ -61,6 +61,8 @@ const together = async (yearMax, yearMin) => {
 				PUBLICATIONS.id AS publication_id, 
 				PUBLICATIONS.title AS publication_title,
 				PUBLICATIONS.publication_year AS publication_year,
+				PUBLICATIONS.publication_type AS publication_type,
+				PUBLICATIONS.publication_type_key AS publication_type_key,
 				ORGAUNITS.id AS orga_unit_id, 
 				ORGAUNITS.name_searchable AS orga_unit_name 
 			# All Publications

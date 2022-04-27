@@ -158,10 +158,16 @@ export default {
     },
   },
   mounted() {
-    const fields = ["orga_unit_id", "publication_year", "publication_id"];
+    const fields = [
+      "orga_unit_id",
+      "publication_year",
+      "publication_type_key",
+      "publication_id",
+    ];
     const fieldsName = [
       "orga_unit_name",
       "publication_year",
+      "publication_type",
       "publication_title",
     ];
 
