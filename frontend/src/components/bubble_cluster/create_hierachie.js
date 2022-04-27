@@ -15,6 +15,7 @@ export const createHierachie = (rows, fields, fieldsName) => {
 
 const insertRow = (map, row, fields, fieldsName) => {
   let children = map.children;
+  let parent = map;
 
   for (let i = 0; i < fields.length; i++) {
     const field = fields[i];
@@ -35,15 +36,17 @@ const insertRow = (map, row, fields, fieldsName) => {
         name: selectedName,
         value: 1,
         children: [],
-        //parent: map,
+        parent: parent,
       };
 
       children.push(newChild);
       children = newChild.children;
+      parent = newChild;
 
       continue;
     }
 
     children = activeChild.children;
+    parent = activeChild;
   }
 };

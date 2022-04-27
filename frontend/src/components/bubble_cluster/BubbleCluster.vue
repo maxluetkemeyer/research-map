@@ -57,112 +57,59 @@ export default {
           d3.select(this).attr("stroke", null);
         })
         .on("click", (event, d) => {
-          zoom(event, d);
-          store.visualizationPath.push(d.data.name);
+          if (d.data.children.length == 0) {
+            this.publicationClicked(d.data);
+          } else {
+            zoom(event, d);
+          }
+          //store.visualizationPath.push(d.data.name);
+          parentPath(d);
           event.stopPropagation();
-        }); //focus !== d &&
-
-      const dy = 6;
-      const fontSize = 5;
-      const charLength = 20;
+        });
 
       const label = svg
         .append("g")
-        .style("font", fontSize + "px sans-serif")
-        //.attr("pointer-events", "none")
         .attr("text-anchor", "middle")
-        .selectAll("text")
+        .style("font", "5px sans-serif")
+        .style("transform", "translate(-12%, -4%)")
+        .selectAll("foreignObject")
         .data(root.descendants())
-        .join("text")
+        .enter()
+        .append("foreignObject")
+        .attr("x", 0)
+        .attr("width", "70px")
+        .attr("height", "30px")
+        .style("display", (d) => (d.parent === root ? "inline" : "none"))
         .on("click", (event, d) => {
           if (d.data.children.length == 0) {
             this.publicationClicked(d.data);
           } else {
             zoom(event, d);
           }
-          /*let element = d.data;
-          store.visualizationPath = [];
-          // eslint-disable-next-line no-constant-condition
-          while (true) {
-            if (element.parent == null) {
-              break;
-            }
-            store.visualizationPath.push(element.name);
-            element = element.parent;
-          }*/
-          store.visualizationPath.push(d.data.name);
+          //store.visualizationPath.push(d.data.name);
+          parentPath(d);
           event.stopPropagation();
-        })
-        .style("fill-opacity", (d) => (d.parent === root ? 1 : 0))
-        .style("display", (d) => (d.parent === root ? "inline" : "none"))
-        .style("fill", "#000")
-        .style("font-weight", "bold");
-
-      label
-        .append("tspan")
-        // eslint-disable-next-line no-unused-vars
-        .attr("x", (d) => 0)
-        .attr("dy", "0")
-        .text((d) => {
-          let output;
-          try {
-            output = d.data.name.toString().substring(0, charLength);
-          } catch {
-            output = "broken";
-          }
-          return output;
         });
 
       label
-        .append("tspan")
-        // eslint-disable-next-line no-unused-vars
-        .attr("x", (d) => 0)
-        .attr("dy", dy)
-        .text((d) => {
-          let output;
-          try {
-            output = d.data.name
-              .toString()
-              .substring(charLength, charLength * 2);
-          } catch {
-            output = "broken";
-          }
-          return output;
-        });
+        .append("xhtml:body")
+        .attr("class", "bubble_label")
+        .text((d) => d.data.name);
 
-      label
-        .append("tspan")
-        // eslint-disable-next-line no-unused-vars
-        .attr("x", (d) => 0)
-        .attr("dy", dy)
-        .text((d) => {
-          let output;
-          try {
-            output = d.data.name
-              .toString()
-              .substring(charLength * 2, charLength * 3);
-          } catch {
-            output = "broken";
+      function parentPath(d) {
+        let element = d.data;
+        store.visualizationPath = [];
+        console.log("NEW PATH");
+        // eslint-disable-next-line no-constant-condition
+        while (true) {
+          if (element.parent == null) {
+            break;
           }
-          return output;
-        });
-
-      label
-        .append("tspan")
-        // eslint-disable-next-line no-unused-vars
-        .attr("x", (d) => 0)
-        .attr("dy", dy)
-        .text((d) => {
-          let output;
-          try {
-            output = d.data.name
-              .toString()
-              .substring(charLength * 3, charLength * 4);
-          } catch {
-            output = "broken";
-          }
-          return output;
-        });
+          console.log(element.name);
+          store.visualizationPath.unshift(element.name);
+          element = element.parent;
+        }
+      }
 
       zoomTo([root.x, root.y, root.r * 2]);
 
@@ -173,7 +120,7 @@ export default {
 
         label.attr(
           "transform",
-          (d) => `translate(${(d.x - v[0]) * k},${(d.y - v[1]) * k - 10})`
+          (d) => `translate(${(d.x - v[0]) * k},${(d.y - v[1]) * k})`
         );
         node.attr("transform", (d) => {
           var kp = `translate(${(d.x - v[0]) * k},${(d.y - v[1]) * k})`;
@@ -230,5 +177,24 @@ export default {
 div {
   width: 100%;
   height: 40vw;
+}
+</style>
+<style>
+.bubble_label {
+  height: 30px;
+  overflow-y: scroll;
+  font: 7px sans-serif;
+  background-color: transparent;
+  text-align: center;
+}
+/* Hide scrollbar for Chrome, Safari and Opera */
+.bubble_label::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.bubble_label {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 </style>
